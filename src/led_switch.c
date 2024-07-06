@@ -7,7 +7,7 @@
 void delay(void);
 void main(void)
 {
-    //Set the input pin to high
+    //Set the input pin to high. Pull-up resistor is used for this(i.e : Connected to Vcc on normal state and when button pressed, it goes LOW)
     SWITCH_PIN = 1;
 
     while (1)
