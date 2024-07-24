@@ -22,5 +22,5 @@ void main(void) {
 
 void delay(void) {
     unsigned long i;
-    for (i = 0; i < 10000; i++);  // Simple delay loop
+    for (i = 0; i < 100000; i++);  // Simple delay loop
 }
