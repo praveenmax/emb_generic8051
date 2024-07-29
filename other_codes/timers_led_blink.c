@@ -41,7 +41,6 @@ void soft_delay(void){
 void timer0_delay(unsigned int delay_ms){
 
     unsigned long ticks = delay_ms * TIMER_TICKS_PER_MS;
-    unsigned int th0, tl0 ; 
 
     TMOD &= 0xF0; //Clear the lower nibble for Timer 0
     TMOD |= 0x01; //Set the Timer0 to Mode 1 (16-Bit timer)
@@ -50,11 +49,9 @@ void timer0_delay(unsigned int delay_ms){
         unsigned long delay_ticks = (ticks > 65536) ? 65536 : ticks;
 
         unsigned int delay_tick_start = 65536 - delay_ticks;
-        th0 = delay_tick_start >> 8;
-        tl0 = delay_tick_start & 0xFF;
+        TH0 = delay_tick_start >> 8;
+        TL0 = delay_tick_start & 0xFF;
 
-        TH0 = th0;
-        TL0 = tl0;
         TR0 = 1; //Start the Timer 0 
 
         while(TF0 == 0); // Wait for overflow
