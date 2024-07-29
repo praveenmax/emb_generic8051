@@ -20,7 +20,6 @@ void main(void) {
 
 void delay_ms(unsigned int ms) {
     unsigned long ticks = ms * TIMER_TICKS_PER_MS;
-    unsigned int th0_val, tl0_val;
     
     TMOD &= 0xF0; // Clear lower nibble for Timer0
     TMOD |= 0x01; // Set Timer-0 to Mode 1 (16-bit timer)
@@ -28,10 +27,9 @@ void delay_ms(unsigned int ms) {
     while (ticks > 0) {
         unsigned long delay_ticks = (ticks > 65536) ? 65536 : ticks;
 
-        th0_val = (65536 - delay_ticks) >> 8; // Calculate the initial values for the timer
-        tl0_val = (65536 - delay_ticks) & 0xFF;
-        TH0 = th0_val;
-        TL0 = tl0_val;
+        TH0 = (65536 - delay_ticks) >> 8; // Calculate the initial values for the timer
+        TL0 = (65536 - delay_ticks) & 0xFF;
+
         TR0 = 1; // Start the timer
         while (TF0 == 0); // Wait for overflow
         TR0 = 0; // Stop the timer
