@@ -46,9 +46,9 @@ void timer0_delay(unsigned int delay_ms){
     TMOD |= 0x01; //Set the Timer0 to Mode 1 (16-Bit timer)
 
     while(ticks > 0){
-        unsigned long delay_ticks = (ticks > 65536) ? 65536 : ticks;
+        unsigned long delay_ticks = (ticks > 65535) ? 65535 : ticks;
 
-        unsigned int delay_tick_start = 65536 - delay_ticks;
+        unsigned int delay_tick_start = 65535 - delay_ticks;
         TH0 = delay_tick_start >> 8;
         TL0 = delay_tick_start & 0xFF;
 

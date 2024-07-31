@@ -16,8 +16,8 @@ void delay_timer0_mode1(unsigned int delay_ms){
 
     while(total_delay_ticks > 0){
 
-        unsigned delay_ticks_part = total_delay_ticks > 65536 ? 65536 : total_delay_ticks;
-        unsigned delay_ticks_start = 65536 - total_delay_ticks;
+        unsigned delay_ticks_part = total_delay_ticks > 65535 ? 65535 : total_delay_ticks;
+        unsigned delay_ticks_start = 65535 - delay_ticks_part;
 
         TH0 = delay_ticks_start >> 8;
         TL0 = delay_ticks_start & 0x0F;
