@@ -1,7 +1,7 @@
 #include <8051.h>       // Include the 8051 microcontroller header file
-#define LCD P2           // Define the port P2 as LCD data port
-#define RS P3_0          // Define pin P3.0 as RS (Register Select)
-#define EN  P3_1          // Define pin P3.1 as EN (Enable)
+#define LCD P1           // Define the port P2 as LCD data port
+#define RS P2_0          // Define pin P3.0 as RS (Register Select)
+#define EN  P2_2          // Define pin P3.1 as EN (Enable)
 
 unsigned char txt[11] = "PraveenMax!";  // Data to display on the LCD
 

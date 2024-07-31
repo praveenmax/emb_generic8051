@@ -8,7 +8,7 @@
 #define RS_PIN P2_0
 #define RW_PIN P2_1
 #define EN_PIN P2_2
-#define LCD_DATA_BUS P3
+#define LCD_DATA_BUS P1
 
 //Misc
 #define LED_PIN P2_3
