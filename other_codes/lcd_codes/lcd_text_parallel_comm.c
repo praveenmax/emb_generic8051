@@ -67,20 +67,52 @@ void LCD_String(char *str) {
 void LCD_init(){
     RW_PIN = 0; //Set to LOW since we are not reading LCD display data(Can also connect to GND)
     LCD_Command(0x38); // 8-bit mode, 2 lines, 5x7 matrix
+    LCD_Command(0x02); // Return Home
+    LCD_Command(0x01); // Clear display
     LCD_Command(0x0C); // Display on, cursor off
     LCD_Command(0x06); // Increment cursor
-    LCD_Command(0x01); // Clear display
+    LCD_Command(0x80); // Text starts from Line 1 
+   // LCD_Command(0xC0); // Text starts from Line 2 
+    //LCD_Command(0x8F); // Custom location test
     delay_timer0_mode1(2);
 }
 
 void main(void){
     LCD_init();
+    LCD_Command(0x80 + 3); //Set text position to Line 1 at 3 offset.
     LCD_String("Hello Max!");
+
+    unsigned char text_startpos_line2 = 0xC0;
+    unsigned char current_text_pos = 0;
+
     while(1){
 
-        LED_PIN = 0;
-        delay_timer0_mode1(500);
-        LED_PIN = 1;
-        delay_timer0_mode1(500);
+        // LED_PIN = 0;
+        // delay_timer0_mode1(500);
+        // LED_PIN = 1;
+        // delay_timer0_mode1(500);
+
+        //Testing
+        //LCD_Command(text_startpos_line2);
+        // LCD_Data('A');
+
+        //Displaying one word at a time. 
+        for(current_text_pos = 0; current_text_pos < 16 ; current_text_pos++)
+        {
+          LCD_Command(text_startpos_line2 + (current_text_pos)); 
+          LCD_Data('>');
+          delay_timer0_mode1(100);
+        }
+
+        //Reset the current position so that the text starts from position 0 
+        current_text_pos=0;
+
+        //Clear the old text
+        LCD_Command(text_startpos_line2); 
+        for(int i=0;i<16;i++)
+        {
+           LCD_Data(' '); //Space will remove the char
+           delay_timer0_mode1(100); // Delay needed to better visuals
+        }
     }
 }
